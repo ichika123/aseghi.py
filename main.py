@@ -1,5 +1,6 @@
 import requests
 import time
+import os
 import random
 import uuid
 import logging
@@ -12,15 +13,15 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # Constants
-TOKEN = "MTI1MjM0MDEwMzUxNTIxNDAwNw.GwE4Ul.06j2kIzhPr0BsY4xljSEsxQjCoqdS58eOEbNlA"
+TOKEN = os.getenv("token")
 
 # Define servers and their respective bump channels
 SERVERS = [
     {
-        "guild_id": "1295703158999220234",
+        "guild_id": "1153934468831252560",
         "channels": {
-            "5hr": "1307599070969204767",
-            "24hr": "1307599070969204767",
+            "5hr": "1154060306956423258",
+            "24hr": "1154060306956423258",
         },
     },
     {
