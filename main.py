@@ -11,7 +11,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # Constants
-TOKEN = "MTI2ODQ0OTg1MTEwNDgyMTMzMg.G2zodh.T7-6ni7teWcef5XLINWfXbprhhg9wrcpBXvEEc"
+TOKEN = "MTI5OTMyNDI5NTg4MDY0MjYyMA.G-ZlOM.HlmfV4xE7a-6ruqSc8dcYSrT93wVfte0NX_CgU"
 GUILD_ID = "1317351089019818055"
 CHANNEL_ID = "1317351089322066002"
 
