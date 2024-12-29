@@ -131,26 +131,26 @@ if __name__ == "__main__":
             },
         ).start()
 
-        # # Start a thread for the 24-hour bump
-        # threading.Thread(
-        #     target=bump_every,
-        #     args=(
-        #         24,
-        #         "1222548162741538938",
-        #         "1225075208394768496",
-        #         "bump",
-        #         guild_id,
-        #         server["channels"]["24hr"],
-        #     ),
-        #     kwargs={
-        #         "payload_customizations": {
-        #             "data": {
-        #                 "version": "1225075208394768497",
-        #                 "id": "1225075208394768496",
-        #                 "name": "bump",
-        #                 "type": 1,
-        #                 "options": [],
-        #             },
-        #         },
-        #     },
-        # ).start()
+        # Start a thread for the 24-hour bump
+        threading.Thread(
+            target=bump_every,
+            args=(
+                24,
+                "1222548162741538938",
+                "1225075208394768496",
+                "bump",
+                guild_id,
+                server["channels"]["24hr"],
+            ),
+            kwargs={
+                "payload_customizations": {
+                    "data": {
+                        "version": "1225075208394768497",
+                        "id": "1225075208394768496",
+                        "name": "bump",
+                        "type": 1,
+                        "options": [],
+                    },
+                },
+            },
+        ).start()
