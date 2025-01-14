@@ -138,6 +138,7 @@ if __name__ == "__main__":
             },
         ).start()
 
+        time.sleep(random.uniform(5, 10))
         # Start a thread for the 24-hour bump
         threading.Thread(
             target=bump_every,
