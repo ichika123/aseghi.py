@@ -31,6 +31,13 @@ SERVERS = [
             "24hr": "1298301267981897862",
         },
     },
+    {
+        "guild_id": "1338762628113367071",
+        "channels": {
+            "5hr": "1338762628406841353",
+            "24hr": "1338762628406841353",
+        },
+    },
 ]
 
 def create_headers(token):
@@ -115,6 +122,7 @@ if __name__ == "__main__":
         guild_id = server["guild_id"]
         
         # Start a thread for the 5-hour bump
+        time.sleep(random.uniform(5, 10))
         threading.Thread(
             target=bump_every,
             args=(
