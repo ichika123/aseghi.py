@@ -17,13 +17,13 @@ TOKEN = os.getenv("token")
 
 # Define servers and their respective bump channels
 SERVERS = [
-    {
-        "guild_id": "1317351089019818055",
-        "channels": {
-            "5hr": "1317351089322066002",
-            "24hr": "1317351089322066002",
-        },
-    },
+    # {
+    #     "guild_id": "1317351089019818055",
+    #     "channels": {
+    #         "5hr": "1317351089322066002",
+    #         "24hr": "1317351089322066002",
+    #     },
+    # },
     {
         "guild_id": "1253604591791247370",
         "channels": {
