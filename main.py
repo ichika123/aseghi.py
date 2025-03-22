@@ -126,7 +126,7 @@ if __name__ == "__main__":
         threading.Thread(
             target=bump_every,
             args=(
-                5,
+                3,
                 "302050872383242240",
                 "947088344167366698",
                 "bump",
@@ -151,7 +151,7 @@ if __name__ == "__main__":
         threading.Thread(
             target=bump_every,
             args=(
-                24,
+                25,
                 "1222548162741538938",
                 "1225075208394768496",
                 "bump",
