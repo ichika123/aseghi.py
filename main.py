@@ -110,7 +110,7 @@ def bump_every(interval_hours, application_id, command_id, command_name, guild_i
         simulate_typing()
         send_bump_command(headers, payload)
 
-        delay = random.uniform(interval_hours - 0.25, interval_hours + 0.25) * 60 * 60
+        delay = random.uniform((interval_hours + 0.06)*3600, (interval_hours + 0.4)*3600)
         logger.info(f"Next bump for {command_name} in {delay / 3600:.2f} hours.")
         time.sleep(delay)
 
@@ -126,7 +126,7 @@ if __name__ == "__main__":
         threading.Thread(
             target=bump_every,
             args=(
-                3,
+                2,
                 "302050872383242240",
                 "947088344167366698",
                 "bump",
