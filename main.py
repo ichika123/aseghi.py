@@ -110,7 +110,7 @@ def bump_every(interval_hours, application_id, command_id, command_name, guild_i
         simulate_typing()
         send_bump_command(headers, payload)
 
-        delay = random.uniform(interval_hours - 0.5, interval_hours + 0.5) * 60 * 60
+        delay = random.uniform(interval_hours - 0.25, interval_hours + 0.25) * 60 * 60
         logger.info(f"Next bump for {command_name} in {delay / 3600:.2f} hours.")
         time.sleep(delay)
 
