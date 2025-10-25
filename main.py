@@ -5,7 +5,6 @@ import random
 import uuid
 import logging
 import threading
-from keep_alive import keep_alive
 
 
 # Logging setup
@@ -69,104 +68,107 @@ def simulate_typing():
     logger.info(f"Simulating typing for {delay:.2f} seconds.")
     time.sleep(delay)
 
-def bump_every(interval_hours, application_id, command_id, command_name, guild_id, channel_id, payload_customizations=None):
+def bump_every(interval_hours, bump_type, guild_id, channel_id):
     """
-    Periodically send a bump command for a specific server and channel.
-
-    Args:
-        interval_hours (float): Base interval in hours between bumps.
-        application_id (str): Application ID for the command.
-        command_id (str): Command ID.
-        command_name (str): Command name.
-        guild_id (str): Discord server (guild) ID.
-        channel_id (str): Discord channel ID.
-        payload_customizations (dict): Additional payload customizations.
+    Periodically send a bump command for a specific bump type (disboard or discadia).
     """
     headers = create_headers(TOKEN)
 
-    payload = {
-        "type": 2,
-        "application_id": application_id,
-        "guild_id": guild_id,
-        "channel_id": channel_id,
-        "session_id": generate_session_id(),
-        "data": {
-            "version": "1",
-            "id": command_id,
-            "name": command_name,
-            "type": 1,
-            "options": [],
-        },
-        "nonce": str(int(time.time() * 1000)),
-    }
+    def build_payload():
+        if bump_type == "disboard":
+            return {
+                "type": 2,
+                "application_id": "302050872383242240",
+                "guild_id": guild_id,
+                "channel_id": channel_id,
+                "session_id": generate_session_id(),
+                "analytics_location": "slash_ui",
+                "data": {
+                    "version": "1051151064008769576",
+                    "id": "947088344167366698",
+                    "name": "bump",
+                    "type": 1,
+                    "options": [],
+                    "application_command": {
+                        "id": "947088344167366698",
+                        "type": 1,
+                        "application_id": "302050872383242240",
+                        "description": "Pushes your server to the top of all your server's tags and the front page",
+                        "description_default": "Pushes your server to the top of all your server's tags and the front page",
+                        "description_localized": "Bump this server.",
+                        "dm_permission": True,
+                        "global_popularity_rank": 1,
+                        "integration_types": [0],
+                        "name": "bump",
+                        "name_localized": "bump",
+                        "options": [],
+                        "version": "1051151064008769576"
+                    }
+                },
+                "attachments": [],
+                "nonce": str(int(time.time() * 1000))
+            }
 
-    if payload_customizations:
-        payload.update(payload_customizations)
+        elif bump_type == "discadia":
+            return {
+                "type": 2,
+                "application_id": "1222548162741538938",
+                "guild_id": guild_id,
+                "channel_id": channel_id,
+                "session_id": generate_session_id(),
+                "analytics_location": "slash_ui",
+                "data": {
+                    "version": "1383872612815343718",
+                    "id": "1225075208394768496",
+                    "name": "bump",
+                    "type": 1,
+                    "options": [],
+                    "application_command": {
+                        "id": "1225075208394768496",
+                        "type": 1,
+                        "application_id": "1222548162741538938",
+                        "description": "Bump your Discadia listing!",
+                        "description_localized": "Bump your Discadia listing!",
+                        "dm_permission": False,
+                        "global_popularity_rank": 1,
+                        "integration_types": [0],
+                        "name": "bump",
+                        "name_localized": "bump",
+                        "options": [],
+                        "version": "1383872612815343718"
+                    }
+                },
+                "attachments": [],
+                "nonce": str(int(time.time() * 1000))
+            }
 
     while True:
-        payload["session_id"] = generate_session_id()
-        payload["nonce"] = str(int(time.time() * 1000))
-
+        payload = build_payload()
         simulate_typing()
         send_bump_command(headers, payload)
 
-        delay = random.uniform((interval_hours + 0.06)*3600, (interval_hours + 0.4)*3600)
-        logger.info(f"Next bump for {command_name} in {delay / 3600:.2f} hours.")
+        delay = random.uniform((interval_hours + 0.06) * 3600, (interval_hours + 0.4) * 3600)
+        logger.info(f"Next bump ({bump_type}) in {delay / 3600:.2f} hours.")
         time.sleep(delay)
 
-keep_alive()
+
+
 if __name__ == "__main__":
     logger.info("Starting automated bumps across multiple servers...")
 
     for server in SERVERS:
         guild_id = server["guild_id"]
-        
-        # Start a thread for the 5-hour bump
+
+        # Disboard bump (5-hour)
         time.sleep(random.uniform(5, 10))
         threading.Thread(
             target=bump_every,
-            args=(
-                2,
-                "302050872383242240",
-                "947088344167366698",
-                "bump",
-                guild_id,
-                server["channels"]["5hr"],
-            ),
-            kwargs={
-                "payload_customizations": {
-                    "data": {
-                        "version": "1051151064008769576",
-                        "id": "947088344167366698",
-                        "name": "bump",
-                        "type": 1,
-                        "options": [],
-                    },
-                },
-            },
+            args=(2, "disboard", guild_id, server["channels"]["5hr"]),
         ).start()
 
+        # Discadia bump (24-hour)
         time.sleep(random.uniform(5, 10))
-        # Start a thread for the 24-hour bump
         threading.Thread(
             target=bump_every,
-            args=(
-                25,
-                "1222548162741538938",
-                "1225075208394768496",
-                "bump",
-                guild_id,
-                server["channels"]["24hr"],
-            ),
-            kwargs={
-                "payload_customizations": {
-                    "data": {
-                        "version": "1051151064008769576",
-                        "id": "1225075208394768496",
-                        "name": "bump",
-                        "type": 1,
-                        "options": [],
-                    },
-                },
-            },
+            args=(25, "discadia", guild_id, server["channels"]["24hr"]),
         ).start()
