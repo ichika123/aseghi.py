@@ -5,6 +5,7 @@ import random
 import uuid
 import logging
 import threading
+from keep_alive import keep_alive
 
 
 # Logging setup
@@ -152,7 +153,7 @@ def bump_every(interval_hours, bump_type, guild_id, channel_id):
         time.sleep(delay)
 
 
-
+keep_alive()
 if __name__ == "__main__":
     logger.info("Starting automated bumps across multiple servers...")
 
@@ -172,3 +173,4 @@ if __name__ == "__main__":
             target=bump_every,
             args=(25, "discadia", guild_id, server["channels"]["24hr"]),
         ).start()
+        
