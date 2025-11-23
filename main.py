@@ -85,7 +85,7 @@ def bump_every(interval_hours, bump_type, guild_id, channel_id):
                 "session_id": generate_session_id(),
                 "analytics_location": "slash_ui",
                 "data": {
-                    "version": "1051151064008769576",
+                    "version": "1383872612815343718",
                     "id": "947088344167366698",
                     "name": "bump",
                     "type": 1,
